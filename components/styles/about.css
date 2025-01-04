@@ -1,41 +1,37 @@
-/* General section styling */
-section {
-    padding: 3rem 1rem;
-  
-  }
-  
-  
+#about {
+  padding: 3rem 1rem;
+  background-color: rgb(242, 251, 254);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
   .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr; 
-    gap: 1rem; 
-    align-items: center;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
   }
-  
-  /* Responsive design for smaller screens */
-  @media (max-width: 768px) {
-    .about-grid {
-      grid-template-columns: 1fr; /* Single column for smaller screens */
-      grid-template-rows: auto;
-    }
-  }
-  
-  /* Styling for the image */
-  .about-grid img {
-    object-fit: contain;
-    width: 100%; /* Make the image responsive */
-    height: auto; /* Maintain aspect ratio */
-    border-radius: 0.5rem; /* Rounded corners */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for better visual appeal */
-  }
-  
-  /* Styling for the article text */
-  .about-grid article {
-    color: #4a4a4a; /* Subtle text color */
-    line-height: 1.8; /* Better readability */
-  }
-  h2{
-    font-size: 1.5rem;
-    font-weight: 600;
-  }
-  
+}
+
+.about-grid img {
+  object-fit: contain;
+  width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.about-grid article {
+  color: #4a4a4a;
+  line-height: 1.8;
+}
+h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: rgb(1, 116, 153);
+  text-decoration: underline;
+}

@@ -1,6 +1,5 @@
 import React from "react";
-import "./styles/location.css"; // Create a separate CSS file for styles
-
+import "./styles/location.css";
 const Location = () => {
   return (
     <section id="location" className="location-container">
@@ -9,8 +8,6 @@ const Location = () => {
         <div className="gmap_canvas">
           <iframe
             className="gmap_iframe mx-auto "
-          
-            
             frameBorder="0"
             scrolling="no"
             marginHeight="0"
