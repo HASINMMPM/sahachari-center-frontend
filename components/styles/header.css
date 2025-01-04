@@ -1,0 +1,12 @@
+.name{
+    color: rgb(1,116,153);
+}
+li a{
+    color: rgb(1,116,153);
+}
+li a:hover{
+color: rgb(3, 73, 1);
+}
+nav{
+    box-shadow:  0 4px 80px 0 rgba(157, 157, 157, 0.2), 0 6px 20px 0 rgba(121, 121, 121, 0.19);
+}
