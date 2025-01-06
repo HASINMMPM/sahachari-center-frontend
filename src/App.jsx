@@ -1,6 +1,7 @@
 import About from "../components/About";
 import Header from "../components/Header";
 import Location from "../components/Location";
+import { Tools } from "../components/Tools";
 
 export default function App() {
   return (
@@ -11,6 +12,7 @@ export default function App() {
     <hr/>
     <Location/>
     <hr/>
+    <Tools/>
   </main>
   )
 }

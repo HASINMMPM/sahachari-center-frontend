@@ -1,0 +1,88 @@
+#tools {
+  background-color: rgb(242, 251, 254);
+  padding: 3rem 1rem;
+}
+h2 {
+  margin: 2rem 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: rgb(1, 116, 153);
+  text-decoration: underline;
+}
+
+.tool-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: border 1.3s ease;
+  border: 2px solid rgb(190, 190, 190);
+  border-radius: 10px;
+  background-color: #fff;
+}
+
+.tool-card:hover {
+  background-color: rgb(242, 251, 254);
+  border: none;
+}
+
+.tool-card img {
+  object-fit: cover;
+  width: 100%;
+  height: 20rem;
+}
+
+.tool-card .p-5 {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.tool-card .description {
+  flex-grow: 1;
+  margin-bottom: 1rem;
+}
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.tool-card img {
+  object-fit: cover;
+  width: 100%;
+  height: 20rem;
+}
+@media (max-width: 1024px) {
+  .tools-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .tools-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .tools-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.available {
+  background-color: #007bff;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.25rem;
+  text-align: center;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+.available:hover {
+  background-color: #0056b3;
+}

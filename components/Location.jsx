@@ -3,7 +3,7 @@ import "./styles/location.css";
 const Location = () => {
   return (
     <section id="location" className="location-container">
-      <h2 className="text-2xl font-bold  mb-4">Our Location</h2>
+      <h2 className="">Our Location</h2>
       <div className="mapouter">
         <div className="gmap_canvas">
           <iframe
