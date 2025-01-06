@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./styles/tools.css";
 import axios from "axios";
+import ToolCard from "./ToolCard";
+import { Link } from "react-router-dom";
 
 export const Tools = () => {
   const [tools, setTools] = useState([]);
@@ -24,29 +26,16 @@ export const Tools = () => {
 
   return (
     <section id="tools">
+      <div className="flex flex-row justify-between item-center head">
       <h2 className="">What we Have</h2>
+        <Link to="/tools">View more</Link>
+      </div>
       {loading ? (
         <h2 className="text-center">Loading...</h2>
       ) : (
         <div className="tools-grid">
           {tools.map((tool) => (
-            <div key={tool.id} className="tool-card">
-              <img
-                className="rounded-t-lg w-full"
-                src={tool.image}
-                alt={tool.name}
-              />
-              <hr />
-              <div className="p-5">
-                <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-                  {tool.name}
-                </h5>
-                <p className="description font-normal text-gray-700 dark:text-gray-400">
-                  {tool.description}
-                </p>
-                <span className="available">Available</span>
-              </div>
-            </div>
+            <ToolCard key={tool._id} singleTool={tool} />
           ))}
         </div>
       )}

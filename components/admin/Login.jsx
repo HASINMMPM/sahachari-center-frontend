@@ -28,7 +28,7 @@ export default function Login() {
           "Content-Type": "application/json", // Ensure proper content type
         },
       });
-      console.log("Response:", response.data);
+      console.log("Response:", response);
     } catch (error) {
       console.error("Error:", error);
       if (error.response) {

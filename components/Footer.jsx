@@ -1,11 +1,14 @@
-import React from 'react'
+import React from "react";
+import {Link} from "react-router-dom";
 
 const Footer = () => {
   return (
-<footer>
-    <a href="/login" className='my-3 p-6'>login</a>
-</footer>
-  )
-}
+    <footer>
+      <Link to="/login" className="my-3 p-6">
+        login
+      </Link>
+    </footer>
+  );
+};
 
-export default Footer
+export default Footer;
