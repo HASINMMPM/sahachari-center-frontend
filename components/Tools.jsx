@@ -27,14 +27,23 @@ export const Tools = () => {
   return (
     <section id="tools">
       <div className="flex flex-row justify-between item-center head">
-      <h2 className="">What we Have</h2>
+        <h2 className="">What we Have</h2>
         <Link to="/tools">View more</Link>
       </div>
       {loading ? (
-        <h2 className="text-center">Loading...</h2>
+        <div class="lds-roller">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
       ) : (
         <div className="tools-grid">
-          {tools.map((tool) => (
+          {tools.slice(0, 4).map((tool) => (
             <ToolCard key={tool._id} singleTool={tool} />
           ))}
         </div>
