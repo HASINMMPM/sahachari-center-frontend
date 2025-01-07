@@ -2,6 +2,7 @@ import React from "react";
 import About from "./About";
 import Location from "./Location";
 import { Tools } from "./Tools";
+import Application from "./Application";
 
 const Home = () => {
   return (
@@ -11,6 +12,8 @@ const Home = () => {
       <Location />
       <hr />
       <Tools />
+      <hr/>
+      <Application/>
     </div>
   );
 };
