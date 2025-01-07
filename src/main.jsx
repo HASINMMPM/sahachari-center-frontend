@@ -4,8 +4,9 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
 import Login from "../components/admin/Login.jsx";
-import { Tools } from "../components/Tools.jsx";
-import Home from "../components/Home.jsx";
+import Home from "../components/main/Home.jsx";
+import { Tools } from "../components/main/Tools.jsx";
+
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
