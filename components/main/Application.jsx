@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./styles/application.css";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import itemsDetails from "../global/items";
+import Swal from "sweetalert2";
 
 const Application = () => {
+  const { items, itemFetch } = itemsDetails();
+
+  useEffect(() => {
+    console.log("Fetching items...");
+    itemFetch();
+  }, [itemFetch]);
   const {
     register,
     handleSubmit,
@@ -11,19 +19,27 @@ const Application = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (data) => {
-    console.log(data);
+  const onSubmit = async (data,event) => {
+    // console.log(data);
     try {
       const res = await axios.post(
         "http://localhost:3000/application/new",
         data,
         {
           headers: {
-            "Content-Type": "application/json", // Ensure proper content type
+            "Content-Type": "application/json",
           },
         }
       );
       console.log(res);
+      Swal.fire({
+        icon: "success",
+        title: "Your Application has been Submitted",
+        showConfirmButton: true,
+        timer: 1500,
+      });
+    //  location.reload()
+    event.target.reset();
     } catch (error) {
       console.log(error);
     }
@@ -159,13 +175,15 @@ const Application = () => {
             <select
               id="item"
               {...register("item")}
-              class=" mt-3 border bg-transparent  border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+              className=" mt-3 border bg-transparent  border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
             >
-              <option>Select One from here...</option>
-              <option>Wheel chair</option>
-              <option>spinal</option>
-              <option>WC- folding</option>
-              <option>walker</option>
+              {items.map((tool) => {
+                return (
+                  <option key={tool._id} value={tool.name}>
+                    {tool.name}
+                  </option>
+                );
+              })}
             </select>
           </div>
           <div className="relative z-0 w-full mb-5 group">
