@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import "./styles/login.css";
-import adminDetails from "../global/admin";
+import {adminDetails} from "../global/admin";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
 
@@ -13,7 +13,7 @@ const schema = yup.object({
 
 export default function Login() {
   const navigate = useNavigate();
-  const { adminLogin } = adminDetails(); // Fetch only the required function
+  const { adminLogin } = adminDetails();
 
   const {
     register,

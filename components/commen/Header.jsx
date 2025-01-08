@@ -1,16 +1,32 @@
 import React, { useState } from "react";
-import './styles/header.css';
+import "./styles/header.css";
+import  { cookieToken } from "../global/admin";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { token,removeToken } = cookieToken();
 
-  const navLinks = [
-    { name: "About", href: "#about" },
-    { name: "Location", href: "#location" },
-    { name: "Tools", href: "#tools" },
-    { name: "Application", href: "#application" },
-    {name:"Call Ambulance",href:"tel:+919995958847"}
-  ];
+  let navLinks = [];
+  if (token) {
+    console.log("token" + token);
+    navLinks = [
+      { name: "Order", href: "#order" },
+      { name: "Tools", href: "#tools" },
+      { name: "Application", href: "#application" },
+    ];
+  } else {
+    navLinks = [
+      { name: "About", href: "#about" },
+      { name: "Location", href: "#location" },
+      { name: "Tools", href: "#tools" },
+      { name: "Application", href: "#application" },
+      { name: "Call Ambulance", href: "tel:+919995958847" },
+    ];
+  }
+  const logout = () => {
+    removeToken();
+    window.location.reload();
+  };
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -34,7 +50,7 @@ const Header = () => {
         <button
           onClick={toggleMenu}
           type="button"
-          className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+          className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-white rounded-lg md:hidden hover:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-400 duration-300 hover:text-black"
         >
           <span className="sr-only">Open main menu</span>
           <svg
@@ -70,6 +86,7 @@ const Header = () => {
                 </a>
               </li>
             ))}
+             <li onClick={() => logout()}>Logout</li>
           </ul>
         </div>
       </div>

@@ -1,10 +1,11 @@
 .name{
     color: rgb(1,116,153);
 }
-li a{
+li {
     color: rgb(1,116,153);
+    cursor: pointer;
 }
-li a:hover{
+li:hover{
 color: rgb(3, 73, 1);
 }
 nav{
