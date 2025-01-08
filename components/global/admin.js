@@ -28,15 +28,12 @@ const adminDetails = create((set) => ({
     }
   },
 }));
-const cookieToken = create((set)=>({
-    token: Cookies.get('token') || '',
-    setToken: (token) => set({ token }),
-    removeToken: () => set({ token: '' }),
-  }));
+const cookieToken = create((set) => ({
+  token: Cookies.get("token"),
+  removeToken: () => {
+    Cookies.remove("token");
+    set({ token: "" });
+  },
+}));
 
-export { cookieToken,
-    adminDetails,
- 
- };
-
-
+export { cookieToken, adminDetails };

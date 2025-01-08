@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./styles/header.css";
 import  { cookieToken } from "../global/admin";
+import Swal from "sweetalert2";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -25,7 +26,14 @@ const Header = () => {
   }
   const logout = () => {
     removeToken();
-    window.location.reload();
+    Swal.fire({
+            icon: "success",
+            title: "Logout success",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          setTimeout(window.location.reload(), 2000)
+    
   };
 
   const toggleMenu = () => {
@@ -86,7 +94,9 @@ const Header = () => {
                 </a>
               </li>
             ))}
-             <li onClick={() => logout()}>Logout</li>
+            {token ?
+             <li onClick={() => logout()}>Logout</li>:<></>
+            }
           </ul>
         </div>
       </div>
