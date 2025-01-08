@@ -3,8 +3,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import "./styles/login.css";
 import adminDetails from "../global/admin";
-// import axios from "axios";
-
+import { useNavigate } from "react-router";
+import Swal from "sweetalert2";
 
 const schema = yup.object({
   email: yup.string().email("Invalid email format").required("Email is required"),
@@ -12,7 +12,9 @@ const schema = yup.object({
 });
 
 export default function Login() {
-  const {adminLogin}=adminDetails()
+  const navigate = useNavigate();
+  const { adminLogin } = adminDetails(); // Fetch only the required function
+
   const {
     register,
     handleSubmit,
@@ -20,43 +22,42 @@ export default function Login() {
   } = useForm({
     resolver: yupResolver(schema),
   });
+
   const onSubmit = async (data) => {
-    alert(JSON.stringify(data, null, 2));
-    adminLogin(data)
-    
-    // const URL = "http://localhost:3000/admin/login";
-    // try {
-    //   const response = await axios.post(URL, data, {
-    //     headers: {
-    //       "Content-Type": "application/json", // Ensure proper content type
-    //     },
-    //   });
-    //   console.log("Response:", response);
-    // } catch (error) {
-    //   console.error("Error:", error);
-    //   if (error.response) {
-    //     alert(error.response.data.message || "An error occurred");
-    //   } else {
-    //     alert("Unable to connect to the server");
-    //   }
-    // }
+    await adminLogin(data);
+
+    const { error, token } = adminDetails.getState(); // Fetch Zustand state
+    if (error) {
+      Swal.fire({
+        icon: "error",
+        title: error,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } else if (token) {
+      Swal.fire({
+        icon: "success",
+        title: "Login Successful",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      navigate("/dashboard");
+    }
   };
-  
 
   return (
     <main className="flex flex-col justify-center h-screen">
       <div className="box mx-auto">
         <h1 className="my-6 text-2xl font-semibold text-center">Login</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
-
           {/* Email Field */}
           <div className="relative z-0 w-full mb-5 group">
             <input
               type="email"
               {...register("email")}
               id="email"
-                  className={`block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 ${
-                errors.password ? "border-red-500" : "border-gray-300"
+              className={`block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 ${
+                errors.email ? "border-red-500" : "border-gray-300"
               } appearance-none dark:text-white focus:outline-none focus:ring-0 peer`}
               placeholder=" "
             />
@@ -69,7 +70,7 @@ export default function Login() {
             <p className="text-red-500 text-xs mt-1">{errors.email?.message}</p>
           </div>
 
-          {/* Password */}
+          {/* Password Field */}
           <div className="relative z-0 w-full mb-5 group">
             <input
               type="password"
@@ -89,7 +90,7 @@ export default function Login() {
             <p className="text-red-500 text-xs mt-1">{errors.password?.message}</p>
           </div>
 
-          {/* Submit  */}
+          {/* Submit */}
           <button
             type="submit"
             className="text-white bg-blue-500 hover:bg-blue-700 font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center duration-300"
