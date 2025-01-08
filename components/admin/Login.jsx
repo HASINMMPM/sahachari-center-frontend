@@ -2,15 +2,17 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import "./styles/login.css";
-import axios from "axios";
+import adminDetails from "../global/admin";
+// import axios from "axios";
 
-// Define schema with custom error messages
+
 const schema = yup.object({
   email: yup.string().email("Invalid email format").required("Email is required"),
   password: yup.string().min(4, "Password must be at least 4 characters").required("Password is required"),
 });
 
 export default function Login() {
+  const {adminLogin}=adminDetails()
   const {
     register,
     handleSubmit,
@@ -19,24 +21,25 @@ export default function Login() {
     resolver: yupResolver(schema),
   });
   const onSubmit = async (data) => {
-    const URL = "http://localhost:3000/admin/login";
     alert(JSON.stringify(data, null, 2));
-  
-    try {
-      const response = await axios.post(URL, data, {
-        headers: {
-          "Content-Type": "application/json", // Ensure proper content type
-        },
-      });
-      console.log("Response:", response);
-    } catch (error) {
-      console.error("Error:", error);
-      if (error.response) {
-        alert(error.response.data.message || "An error occurred");
-      } else {
-        alert("Unable to connect to the server");
-      }
-    }
+    adminLogin(data)
+    
+    // const URL = "http://localhost:3000/admin/login";
+    // try {
+    //   const response = await axios.post(URL, data, {
+    //     headers: {
+    //       "Content-Type": "application/json", // Ensure proper content type
+    //     },
+    //   });
+    //   console.log("Response:", response);
+    // } catch (error) {
+    //   console.error("Error:", error);
+    //   if (error.response) {
+    //     alert(error.response.data.message || "An error occurred");
+    //   } else {
+    //     alert("Unable to connect to the server");
+    //   }
+    // }
   };
   
 
