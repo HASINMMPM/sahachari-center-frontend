@@ -6,7 +6,7 @@ import App from "./App.jsx";
 import Login from "../components/admin/Login.jsx";
 import Home from "../components/main/Home.jsx";
 import AllTools from "../components/main/AllTools.jsx";
-import AdHome from "../components/admin/AdHome.jsx";
+
 import ItemList from "../components/admin/ItemList.jsx";
 import AddTool from "../components/admin/AddTool.jsx";
 
@@ -17,7 +17,7 @@ createRoot(document.getElementById("root")).render(
       <Route path="/" element={<App />}>
         <Route index element={<Home />} /> 
         <Route path="tools" element={<AllTools />} /> 
-        <Route path="dashboard" element={<AdHome />} />
+
         <Route path="dashboard/tools" element={<ItemList />} />
         <Route path="dashboard/tools/add" element={<AddTool />} />
 

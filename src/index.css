@@ -10,3 +10,9 @@ html {
     height: .2rem;
     background-color: rgb(206, 206, 206);
   }
+
+  .adminHometext{
+    color: rgb(5, 146, 146);
+    font-size: 2rem;
+    font-weight: 600;
+  }
