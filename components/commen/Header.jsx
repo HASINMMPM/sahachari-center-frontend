@@ -11,16 +11,16 @@ const Header = () => {
   if (token) {
     console.log("token" + token);
     navLinks = [
-      { name: "Order", href: "#order" },
-      { name: "Tools", href: "#tools" },
-      { name: "Application", href: "#application" },
+      { name: "Order", href: "/dashboard/order" },
+      { name: "Tools", href: "/dashboard/tools" },
+      { name: "Application", href: "/dashboard/application" },
     ];
   } else {
     navLinks = [
-      { name: "About", href: "#about" },
-      { name: "Location", href: "#location" },
-      { name: "Tools", href: "#tools" },
-      { name: "Application", href: "#application" },
+      { name: "About", href: "/#about" },
+      { name: "Location", href: "/#location" },
+      { name: "Tools", href: "/#tools" },
+      { name: "Application", href: "/#application" },
       { name: "Call Ambulance", href: "tel:+919995958847" },
     ];
   }
@@ -43,18 +43,33 @@ const Header = () => {
   return (
     <nav className="drop-shadow-xl">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
+        {token ?
+        
+        <a href="/dashboard" className="flex items-center space-x-3 rtl:space-x-reverse">
           <img
             src="https://live.staticflickr.com/4076/4862492962_248dff6b12_b.jpg"
             className="h-8 md:h-12"
-            alt="Flowbite Logo"
+            alt="Skssf Logo"
           />
           <span className="name self-center text-xl md:text-2xl font-semibold whitespace-nowrap text-blue-500">
             Sahachari Center
             <br />
             <span className="text-lg md:text-xl">SKSSF Kolmanna</span>
           </span>
-        </a>
+        </a>:
+         <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
+         <img
+           src="https://live.staticflickr.com/4076/4862492962_248dff6b12_b.jpg"
+           className="h-8 md:h-12"
+           alt="Skssf Logo"
+         />
+         <span className="name self-center text-xl md:text-2xl font-semibold whitespace-nowrap text-blue-500">
+           Sahachari Center
+           <br />
+           <span className="text-lg md:text-xl">SKSSF Kolmanna</span>
+         </span>
+       </a>
+      }
         <button
           onClick={toggleMenu}
           type="button"
@@ -95,7 +110,7 @@ const Header = () => {
               </li>
             ))}
             {token ?
-             <li onClick={() => logout()}>Logout</li>:<></>
+             <li className="text-red-600" onClick={() => logout()}>Logout</li>:<></>
             }
           </ul>
         </div>

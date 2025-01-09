@@ -42,6 +42,7 @@ export default function Login() {
         timer: 1500,
       });
       navigate("/dashboard");
+      location.reload()
     }
   };
 

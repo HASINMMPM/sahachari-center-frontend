@@ -75,7 +75,7 @@ export const Tools = () => {
     <section id="tools">
       <div className="flex flex-row justify-between items-center head">
         <h2 className="">What we Have</h2>
-        <Link to="/tools">View more</Link>
+        <Link to="/tools" className="more">View more</Link>
       </div>
       {loading ? (
         <div className="lds-roller">
