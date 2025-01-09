@@ -11,7 +11,7 @@ const Header = () => {
   if (token) {
     console.log("token" + token);
     navLinks = [
-      { name: "Order", href: "/dashboard/order" },
+      { name: "Order", href: "/dashboard/order/all" },
       { name: "Tools", href: "/dashboard/tools" },
       { name: "Application", href: "/dashboard/application" },
     ];

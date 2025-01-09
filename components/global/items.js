@@ -9,6 +9,7 @@ const itemsDetails = create((set, get) => ({
   items: [],
   loading: false,
   error: null,
+  order:[],
 
   itemFetch: async () => {
     console.log("Fetching items...");
@@ -89,6 +90,41 @@ const itemsDetails = create((set, get) => ({
     }
   },
 
+  addOrder: async (data) => {
+    console.log("making outgoing...");
+    set({ loading: true, error: null });
+    try {
+    const res=  await axios.post(`${URL}/order/new`, data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      console.log(res)
+      Swal.fire({
+        icon: "success",
+        title:  "submitted ",
+        showConfirmButton: true,
+        timer: 1500,
+      });
+    
+    } catch (error) {
+      console.error("Error updating item:", error);
+      set({ error: error.message, loading: false });
+    }
+  },
+
+  orderFetch: async () => {
+    console.log("Fetching orders...");
+    set({ loading: true, error: null });
+    try {
+      const response = await axios.get(`${URL}/order/all`);
+      console.log("Fetched orderes:", response);
+      set({ order: response.data, loading: false });
+    } catch (error) {
+      console.error("Error fetching items:", error.response.data.error);
+      set({ error: error.message, loading: false });
+    }
+  },
 
 }));
 

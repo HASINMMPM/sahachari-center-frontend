@@ -17,7 +17,7 @@ const ToolCard = ({singleTool}) => {
       <p className="description font-normal text-gray-700 dark:text-gray-400">
         {singleTool.description}
       </p>
-      <span className="available">Available</span>
+      <span className="available">Available ({singleTool.availableCount})</span>
     </div>
   </div>
   )
