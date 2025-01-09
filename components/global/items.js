@@ -106,6 +106,7 @@ const itemsDetails = create((set, get) => ({
         showConfirmButton: true,
         timer: 1500,
       });
+      setTimeout(location.reload(), 2000);
     
     } catch (error) {
       console.error("Error updating item:", error);
@@ -122,6 +123,33 @@ const itemsDetails = create((set, get) => ({
       set({ order: response.data, loading: false });
     } catch (error) {
       console.error("Error fetching items:", error.response.data.error);
+      set({ error: error.message, loading: false });
+    }
+  },
+
+  returnOrder: async (id) => {
+    console.log("return item :",id);
+    set({ loading: true, error: null });
+    try {
+      await axios.post(`${URL}/order/return/${id}`);
+      console.log(`mark return order ID: ${id}`);
+      await get().itemFetch(); // Fetch updated items
+    } catch (error) {
+      console.error("Error return item:", error);
+      console.log(error.response.data.error)
+      set({ error: error.message, loading: false });
+    }
+  },
+  
+  singleItem: async (id) => {
+    console.log("get single item...");
+    set({ loading: true, error: null });
+    try {
+     const res= await axios.get(`${URL}/item/view/${id}`);
+     console.log(res)
+      
+    } catch (error) {
+      console.error("Error increment item:", error);
       set({ error: error.message, loading: false });
     }
   },

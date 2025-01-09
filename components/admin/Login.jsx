@@ -41,7 +41,7 @@ export default function Login() {
         showConfirmButton: false,
         timer: 1500,
       });
-      navigate("/dashboard");
+      navigate("/");
       location.reload()
     }
   };
