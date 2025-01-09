@@ -11,6 +11,7 @@ import ItemList from "../components/admin/ItemList.jsx";
 import AddTool from "../components/admin/AddTool.jsx";
 import AddOrder from "../components/admin/AddOrder.jsx";
 import AllOrders from "../components/admin/AllOrders.jsx";
+import Applications from "../components/admin/Application.jsx";
 
 
 createRoot(document.getElementById("root")).render(
@@ -24,6 +25,7 @@ createRoot(document.getElementById("root")).render(
         <Route path="dashboard/order/all/new" element={<AddOrder />} />
         <Route path="dashboard/tools" element={<ItemList />} />
         <Route path="dashboard/tools/add" element={<AddTool />} />
+        <Route path="dashboard/application" element={<Applications />} />
 
       </Route>
       <Route path="/login" element={<Login />} />

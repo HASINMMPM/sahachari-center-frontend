@@ -10,6 +10,7 @@ const itemsDetails = create((set, get) => ({
   loading: false,
   error: null,
   order:[],
+  applications:[],
 
   itemFetch: async () => {
     console.log("Fetching items...");
@@ -153,6 +154,20 @@ const itemsDetails = create((set, get) => ({
       set({ error: error.message, loading: false });
     }
   },
+
+  fetchApplications: async ()=>{
+    console.log("Fetching applications...");
+    set({ loading: true, error: null });
+    try {
+      const response = await axios.get(`${URL}/application/all`);
+      console.log("Fetched applications:", response);
+      set({ applications: response.data, loading: false });
+    } catch (error) {
+      console.error("Error fetching applications:", error);
+      set({ error: error.message, loading: false });
+    }
+
+  }
 
 }));
 
