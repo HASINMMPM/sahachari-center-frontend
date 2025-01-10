@@ -1,17 +1,38 @@
-import { React, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./styles/itemList.css";
 import itemsDetails from "../global/items";
 import { Link } from "react-router-dom";
+
 const AllOrders = () => {
   const { orderFetch, loading, order, returnOrder } = itemsDetails();
+  const [filterText, setFilterText] = useState("All Transitions");
+  const [filterOrder, setFilterOrder] = useState([]);
 
+  
   useEffect(() => {
     console.log("Fetching items...");
     orderFetch();
   }, [orderFetch]);
+
+ 
+  useEffect(() => {
+    if (filterText === "Unreturned") {
+      setFilterOrder(order);
+    } else {
+      setFilterOrder(order.filter((o) => !o.returnStatus));
+    }
+  }, [order, filterText]);
+
   const handleReturn = (id) => {
     returnOrder(id);
-    console.log("returning", id);
+    console.log("Returning item with ID:", id);
+  };
+
+  const handleFilter = () => {
+    console.log("Handle filter clicked");
+    setFilterText((prevText) =>
+      prevText === "All Transitions" ? "Unreturned" : "All Transitions"
+    );
   };
 
   if (loading) {
@@ -30,67 +51,65 @@ const AllOrders = () => {
       </div>
     );
   }
+
   return (
     <section className="section">
       <div className="head_Tool">
-        <h1>All transition</h1>
-        <button className="">
-          <Link to="new">Add order</Link>
+        <h1>All Transactions</h1>
+        <button>
+          <Link to="new">Add Order</Link>
         </button>
       </div>
+      <h3
+        onClick={handleFilter}
+        className="filter"
+        style={{ cursor: "pointer", color: "blue" }}
+      >
+        show {filterText}
+      </h3>
       <hr />
 
-      {order.length > 0 ? (
+      {filterOrder.length > 0 ? (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
           <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
-                <th scope="col" className="px-6 py-3">
-                  Item
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  patient Name
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Phone Number
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Date
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Return
-                </th>
+                <th scope="col" className="px-6 py-3">Item</th>
+                <th scope="col" className="px-6 py-3">Patient Name</th>
+                <th scope="col" className="px-6 py-3">Phone Number</th>
+                <th scope="col" className="px-6 py-3">Date</th>
+                <th scope="col" className="px-6 py-3">Return</th>
               </tr>
             </thead>
             <tbody>
-              {order.map((order) => (
+              {filterOrder.map((orderItem) => (
                 <tr
-                  key={order._id}
+                  key={orderItem._id}
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                 >
                   <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                    {order.itemName}
+                    {orderItem.itemName}
                   </td>
                   <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                    {order.nameOfPatient}
+                    {orderItem.nameOfPatient}
                   </td>
                   <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                    {order.phoneNumberOfPatient}
+                    {orderItem.phoneNumberOfPatient}
                   </td>
                   <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                    {new Date(order.date).toLocaleDateString("en-US", {
+                    {new Date(orderItem.date).toLocaleDateString("en-US", {
                       year: "numeric",
                       month: "long",
                       day: "numeric",
                     })}
                   </td>
                   <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                    {order.returnStatus === true ? (
+                    {orderItem.returnStatus ? (
                       <span className="text-green-600">Returned</span>
                     ) : (
                       <button
                         className="rounded-md"
-                        onClick={() => handleReturn(order._id)}
+                        onClick={() => handleReturn(orderItem._id)}
                       >
                         Return <br /> Confirm
                       </button>
