@@ -9,8 +9,8 @@ const itemsDetails = create((set, get) => ({
   items: [],
   loading: false,
   error: null,
-  order:[],
-  applications:[],
+  order: [],
+  applications: [],
 
   itemFetch: async () => {
     console.log("Fetching items...");
@@ -31,10 +31,10 @@ const itemsDetails = create((set, get) => ({
     try {
       await axios.delete(`${URL}/item/remove/${id}`);
       console.log(`Deleted item with ID: ${id}`);
-      await get().itemFetch(); 
+      await get().itemFetch();
       Swal.fire({
         icon: "success",
-        title:  "Item removed",
+        title: "Item removed",
         showConfirmButton: true,
         timer: 1500,
       });
@@ -56,7 +56,7 @@ const itemsDetails = create((set, get) => ({
       console.log(response.data.newItem.name);
       Swal.fire({
         icon: "success",
-        title: response.data.newItem.name+"  added ",
+        title: response.data.newItem.name + "  added ",
         showConfirmButton: true,
         timer: 1500,
       });
@@ -95,20 +95,19 @@ const itemsDetails = create((set, get) => ({
     console.log("making outgoing...");
     set({ loading: true, error: null });
     try {
-    const res=  await axios.post(`${URL}/order/new`, data, {
+      const res = await axios.post(`${URL}/order/new`, data, {
         headers: {
           "Content-Type": "application/json",
         },
       });
-      console.log(res)
+      console.log(res);
       Swal.fire({
         icon: "success",
-        title:  "submitted ",
+        title: "submitted ",
         showConfirmButton: true,
         timer: 1500,
       });
       setTimeout(location.reload(), 2000);
-    
     } catch (error) {
       console.error("Error updating item:", error);
       set({ error: error.message, loading: false });
@@ -129,33 +128,63 @@ const itemsDetails = create((set, get) => ({
   },
 
   returnOrder: async (id) => {
-    console.log("return item :",id);
+    console.log("return item:", id);
     set({ loading: true, error: null });
+
     try {
-      await axios.post(`${URL}/order/return/${id}`);
-      console.log(`mark return order ID: ${id}`);
-      await get().orderFetch(); // Fetch updated items
+      const result = await Swal.fire({
+        title: "Are you sure it's Return? ",
+        text: "You won't be able to revert this!",
+        showCancelButton: true,
+        confirmButtonText: "Sure",
+        showClass: {
+          popup: `
+            animate__animated
+            animate__fadeInUp
+            animate__faster
+          `
+        },
+        hideClass: {
+          popup: `
+            animate__animated
+            animate__fadeOutDown
+            animate__faster
+          `
+        }
+      });
+
+      if (result.isConfirmed) {
+
+        await axios.post(`${URL}/order/return/${id}`);
+        console.log(`Marked return for order ID: ${id}`);
+
+        // Fetch updated orders
+        await get().orderFetch();
+
+        Swal.fire("Item Return marked");
+      } else if (result.isDenied) {
+        Swal.fire("Changes are not saved", "", "info");
+      }
     } catch (error) {
-      console.error("Error return item:", error);
-      console.log(error.response.data.error)
+      console.error("Error returning item:", error);
+      console.log(error.response?.data?.error || "An error occurred");
       set({ error: error.message, loading: false });
     }
   },
-  
+
   singleItem: async (id) => {
     console.log("get single item...");
     set({ loading: true, error: null });
     try {
-     const res= await axios.get(`${URL}/item/view/${id}`);
-     console.log(res)
-      
+      const res = await axios.get(`${URL}/item/view/${id}`);
+      console.log(res);
     } catch (error) {
       console.error("Error increment item:", error);
       set({ error: error.message, loading: false });
     }
   },
 
-  fetchApplications: async ()=>{
+  fetchApplications: async () => {
     console.log("Fetching applications...");
     set({ loading: true, error: null });
     try {
@@ -166,9 +195,7 @@ const itemsDetails = create((set, get) => ({
       console.error("Error fetching applications:", error);
       set({ error: error.message, loading: false });
     }
-
-  }
-
+  },
 }));
 
 export default itemsDetails;
