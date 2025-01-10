@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import "./styles/header.css";
 import  { cookieToken } from "../global/admin";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { token,removeToken } = cookieToken();
+  const navigate = useNavigate();
 
   let navLinks = [];
   if (token) {
@@ -32,7 +34,10 @@ const Header = () => {
             showConfirmButton: false,
             timer: 1500,
           });
+          navigate("/");
+
           setTimeout(window.location.reload(), 2000)
+
     
   };
 

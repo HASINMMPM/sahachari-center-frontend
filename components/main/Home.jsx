@@ -15,7 +15,7 @@ const Home = () => {
         <p className="adminHometext">Welcome to the Admin Dashboard!</p>
       </div> : 
     <div>
-      <h1>{token} recieved</h1>
+      
       <About />
       <hr />
       <Location />

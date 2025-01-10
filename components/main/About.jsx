@@ -1,5 +1,6 @@
 import React from "react";
 import "./styles/about.css";
+import img from "./../../public/sahachari.jpg"
 
 const About = () => {
   return (
@@ -24,7 +25,7 @@ const About = () => {
           </p>
         </article>
         <img
-          src="https://skssf.in/wp-content/uploads/2022/12/sah-238x178.jpg"
+          src={img}
           alt="Sahachari Center"
         />
       </div>

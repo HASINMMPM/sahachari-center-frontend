@@ -134,7 +134,7 @@ const itemsDetails = create((set, get) => ({
     try {
       await axios.post(`${URL}/order/return/${id}`);
       console.log(`mark return order ID: ${id}`);
-      await get().itemFetch(); // Fetch updated items
+      await get().orderFetch(); // Fetch updated items
     } catch (error) {
       console.error("Error return item:", error);
       console.log(error.response.data.error)
