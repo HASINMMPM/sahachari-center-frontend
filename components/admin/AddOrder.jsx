@@ -51,6 +51,7 @@ export default function AddOrder() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -62,6 +63,7 @@ export default function AddOrder() {
 
   const onSubmit = async (data) => {
     addOrder(data);
+    reset()
   };
 
   if (loading) {
@@ -99,8 +101,8 @@ export default function AddOrder() {
           <label htmlFor="phoneNumberOfPatient">Phone Number</label>
           <input
             type="number"
-            placeholder="Enter patient Number here..."
-            {...register("phoneNumberOfPatient", { min: 10, max: 13 })}
+            placeholder="Enter patient Number here with country code (+918089898989"
+            {...register("phoneNumberOfPatient", { min: 10, max: 13,required: true })}
           />
           <p className="text-red-500 text-xs mt-1">{errors.phoneNumberOfPatient?.message}</p>
         </div>
@@ -166,6 +168,7 @@ export default function AddOrder() {
         </div>
 
         <div className="grp">
+        <label htmlFor="itemCode">Item </label>
           <select {...register("item", { required: true })}>
             {items.map((item) => (
               <option key={item._id} value={item._id}>
@@ -173,6 +176,16 @@ export default function AddOrder() {
               </option>
             ))}
           </select>
+        </div>
+
+        <div className="grp">
+          <label htmlFor="itemCode">Item Code</label>
+          <input
+            type="text"
+            placeholder="Enter patient name here"
+            {...register("itemCode", { required: true })}
+          />
+                      <p className="text-red-500 text-xs mt-1">{errors.nameOfPatient?.message}</p>
         </div>
 
         <div className="grp">

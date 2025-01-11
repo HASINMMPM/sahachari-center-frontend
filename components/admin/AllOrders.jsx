@@ -75,6 +75,7 @@ const AllOrders = () => {
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
                 <th scope="col" className="px-6 py-3">Item</th>
+                <th scope="col" className="px-6 py-3">Item code</th>
                 <th scope="col" className="px-6 py-3">Patient Name</th>
                 <th scope="col" className="px-6 py-3">Phone Number</th>
                 <th scope="col" className="px-6 py-3">Date</th>
@@ -89,6 +90,10 @@ const AllOrders = () => {
                 >
                   <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
                     {orderItem.itemName}
+                  </td>
+
+                  <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                    {orderItem. itemCode}
                   </td>
                   <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
                     {orderItem.nameOfPatient}

@@ -107,10 +107,17 @@ const itemsDetails = create((set, get) => ({
         showConfirmButton: true,
         timer: 1500,
       });
-      setTimeout(location.reload(), 2000);
+      
     } catch (error) {
       console.error("Error updating item:", error);
-      set({ error: error.message, loading: false });
+      set({ error: error.response.data.error, loading: false });
+      Swal.fire({
+        icon: "error",
+        title: ` ${error.response.data.error}`,
+        text:"are you sure",
+        showConfirmButton: true,
+      
+      });
     }
   },
 
