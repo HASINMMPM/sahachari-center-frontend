@@ -2,10 +2,11 @@ import { React, useEffect } from "react";
 import "./styles/itemList.css";
 import itemsDetails from "../global/items";
 import { Link } from "react-router-dom";
+import { cookieToken } from "../global/admin";
 const ItemList = () => {
   const { items, itemFetch, loading, deleteItem, inceItem, decItem } =
     itemsDetails();
-
+  const { token } = cookieToken();
   useEffect(() => {
     console.log("Fetching items...");
     itemFetch();
@@ -37,6 +38,13 @@ const ItemList = () => {
           <div></div>
           <div></div>
         </div>
+      </div>
+    );
+  }
+  if (!token) {
+    return (
+      <div className="h-screen flex justify-center items-center">
+        <h1>You need to be logged in to access this page.</h1>
       </div>
     );
   }

@@ -1,17 +1,14 @@
 import { useForm } from "react-hook-form";
 import "./styles/addTool.css";
-import itemsDetails from "../global/items";
 import { useEffect } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-
-
+import itemsDetails from "../global/items";
+import { cookieToken } from "../global/admin";
 
 const schema = yup
   .object({
-    nameOfPatient: yup
-      .string()
-      .required("Name of the patient is required."),
+    nameOfPatient: yup.string().required("Name of the patient is required."),
     phoneNumberOfPatient: yup
       .number()
       .typeError("Phone number of the patient must be a valid number.")
@@ -19,14 +16,11 @@ const schema = yup
       .test(
         "len",
         "Phone number of the patient must be between 10 and 13 digits.",
-        (val) => val && val.toString().length >= 10 && val.toString().length <= 13
+        (val) =>
+          val && val.toString().length >= 10 && val.toString().length <= 13
       ),
-    place: yup
-      .string()
-      .required("Place is required."),
-    address: yup
-      .string()
-      .required("Address is required."),
+    place: yup.string().required("Place is required."),
+    address: yup.string().required("Address is required."),
     phoneNumber: yup
       .number()
       .typeError("Phone number must be a valid number.")
@@ -34,11 +28,10 @@ const schema = yup
       .test(
         "len",
         "Phone number must be between 10 and 13 digits.",
-        (val) => val && val.toString().length >= 10 && val.toString().length <= 13
+        (val) =>
+          val && val.toString().length >= 10 && val.toString().length <= 13
       ),
-    taker: yup
-      .string()
-      .required("Taker's name is required."),
+    taker: yup.string().required("Taker's name is required."),
     date: yup
       .date()
       .typeError("Date must be a valid date.")
@@ -47,7 +40,8 @@ const schema = yup
   .required();
 
 export default function AddOrder() {
-  const { addOrder, items, itemFetch ,loading} = itemsDetails();
+  const { addOrder, items, itemFetch, loading } = itemsDetails();
+  const { token } = cookieToken();
   const {
     register,
     handleSubmit,
@@ -61,9 +55,8 @@ export default function AddOrder() {
     itemFetch();
   }, [itemFetch]);
 
-  const onSubmit = async (data) => {
-    addOrder(data);
-    reset()
+  const onSubmit = async (data, reset) => {
+    addOrder(data, reset);
   };
 
   if (loading) {
@@ -82,11 +75,19 @@ export default function AddOrder() {
       </div>
     );
   }
+  if (!token) {
+    return (
+      <div className="h-screen flex justify-center items-center">
+        <h1 >You need to be logged in to access this page.</h1>
+      </div>
+    );
+  }
+
   return (
     <section className="section">
       <form onSubmit={handleSubmit(onSubmit)}>
         <h1>Outgoing Form</h1>
-       
+
         <div className="grp">
           <label htmlFor="nameOfPatient">Patient Name</label>
           <input
@@ -94,7 +95,9 @@ export default function AddOrder() {
             placeholder="Enter patient name here"
             {...register("nameOfPatient", { required: true })}
           />
-                      <p className="text-red-500 text-xs mt-1">{errors.nameOfPatient?.message}</p>
+          <p className="text-red-500 text-xs mt-1">
+            {errors.nameOfPatient?.message}
+          </p>
         </div>
 
         <div className="grp">
@@ -102,9 +105,15 @@ export default function AddOrder() {
           <input
             type="number"
             placeholder="Enter patient Number here with country code (+918089898989"
-            {...register("phoneNumberOfPatient", { min: 10, max: 13,required: true })}
+            {...register("phoneNumberOfPatient", {
+              min: 10,
+              max: 13,
+              required: true,
+            })}
           />
-          <p className="text-red-500 text-xs mt-1">{errors.phoneNumberOfPatient?.message}</p>
+          <p className="text-red-500 text-xs mt-1">
+            {errors.phoneNumberOfPatient?.message}
+          </p>
         </div>
 
         <div className="grp">
@@ -134,7 +143,9 @@ export default function AddOrder() {
             placeholder="name of giver"
             {...register("handOverby", { required: true })}
           />
-          <p className="text-red-500 text-xs mt-1">{errors.handOverby?.message}</p>
+          <p className="text-red-500 text-xs mt-1">
+            {errors.handOverby?.message}
+          </p>
         </div>
 
         <div className="grp">
@@ -154,7 +165,9 @@ export default function AddOrder() {
             placeholder="Enter receiver Number..."
             {...register("phoneNumber", { min: 10, max: 13 })}
           />
-          <p className="text-red-500 text-xs mt-1">{errors.phoneNumber?.message}</p>
+          <p className="text-red-500 text-xs mt-1">
+            {errors.phoneNumber?.message}
+          </p>
         </div>
 
         <div className="grp">
@@ -164,11 +177,13 @@ export default function AddOrder() {
             placeholder="Enter relation with patient"
             {...register("relationWithPatient")}
           />
-          <p className="text-red-500 text-xs mt-1">{errors.relationWithPatient?.message}</p>
+          <p className="text-red-500 text-xs mt-1">
+            {errors.relationWithPatient?.message}
+          </p>
         </div>
 
         <div className="grp">
-        <label htmlFor="itemCode">Item </label>
+          <label htmlFor="itemCode">Item </label>
           <select {...register("item", { required: true })}>
             {items.map((item) => (
               <option key={item._id} value={item._id}>
@@ -185,19 +200,21 @@ export default function AddOrder() {
             placeholder="Enter patient name here"
             {...register("itemCode", { required: true })}
           />
-                      <p className="text-red-500 text-xs mt-1">{errors.nameOfPatient?.message}</p>
+          <p className="text-red-500 text-xs mt-1">
+            {errors.nameOfPatient?.message}
+          </p>
         </div>
 
         <div className="grp">
           <label htmlFor="date">Date</label>
           <input type="date" {...register("date", { required: true })} />
-        <p className="text-red-500 text-xs mt-1">{errors.date?.message}</p>
+          <p className="text-red-500 text-xs mt-1">{errors.date?.message}</p>
         </div>
 
         <div className="grp">
           <label htmlFor="time">Time</label>
           <input type="time" {...register("time", { required: true })} />
-        <p className="text-red-500 text-xs mt-1">{errors.time?.message}</p>
+          <p className="text-red-500 text-xs mt-1">{errors.time?.message}</p>
         </div>
 
         <button type="submit">Submit</button>

@@ -1,9 +1,11 @@
 import { useForm } from "react-hook-form";
 import "./styles/addTool.css";
 import itemsDetails from "../global/items";
+import { cookieToken } from "../global/admin";
 
 export default function AddTool() {
   const {addItem} =itemsDetails()
+  const { token } = cookieToken();
   const {
     register,
     handleSubmit,
@@ -14,7 +16,13 @@ export default function AddTool() {
   const onSubmit = async (data) => {
    addItem(data)
   };
-
+  if (!token) {
+    return (
+      <div className="h-screen flex justify-center items-center">
+        <h1 >You need to be logged in to access this page.</h1>
+      </div>
+    );
+  }
   return (
     <section className="section">
       <form onSubmit={handleSubmit(onSubmit)}>

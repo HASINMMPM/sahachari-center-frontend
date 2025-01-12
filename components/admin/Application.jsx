@@ -1,14 +1,23 @@
 import { React, useEffect } from "react";
 import "./styles/itemList.css";
 import itemsDetails from "../global/items";
+import { cookieToken } from "../global/admin";
 const Applications = () => {
-  const {fetchApplications ,loading,applications } = itemsDetails();
+  const { fetchApplications, loading, applications } = itemsDetails();
+  const { token } = cookieToken();
 
   useEffect(() => {
     console.log("Fetching applications...");
     fetchApplications();
   }, [fetchApplications]);
- 
+
+  if (!token) {
+    return (
+      <div className="h-screen flex justify-center items-center">
+        <h1>You need to be logged in to access this page.</h1>
+      </div>
+    );
+  }
 
   if (loading) {
     return (
@@ -30,11 +39,10 @@ const Applications = () => {
     <section className="section">
       <div className="head_Tool">
         <h1>Applications</h1>
-        
       </div>
       <hr />
 
-      {applications.length> 0 ? (
+      {applications.length > 0 ? (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
           <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -54,7 +62,6 @@ const Applications = () => {
                 <th scope="col" className="px-6 py-3">
                   Date
                 </th>
-             
               </tr>
             </thead>
             <tbody>
@@ -82,7 +89,6 @@ const Applications = () => {
                       day: "numeric",
                     })}
                   </td>
-                 
                 </tr>
               ))}
             </tbody>

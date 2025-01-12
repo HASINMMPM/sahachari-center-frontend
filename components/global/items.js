@@ -91,7 +91,7 @@ const itemsDetails = create((set, get) => ({
     }
   },
 
-  addOrder: async (data) => {
+  addOrder: async (data,reset) => {
     console.log("making outgoing...");
     set({ loading: true, error: null });
     try {
@@ -107,6 +107,7 @@ const itemsDetails = create((set, get) => ({
         showConfirmButton: true,
         timer: 1500,
       });
+      reset()
       
     } catch (error) {
       console.error("Error updating item:", error);

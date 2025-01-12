@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import "./styles/itemList.css";
 import itemsDetails from "../global/items";
 import { Link } from "react-router-dom";
+import { cookieToken } from "../global/admin";
 
 const AllOrders = () => {
   const { orderFetch, loading, order, returnOrder } = itemsDetails();
   const [filterText, setFilterText] = useState("All Transitions");
   const [filterOrder, setFilterOrder] = useState([]);
+  const { token } = cookieToken();
 
   
   useEffect(() => {
@@ -51,7 +53,13 @@ const AllOrders = () => {
       </div>
     );
   }
-
+  if (!token) {
+    return (
+      <div className="h-screen flex justify-center items-center">
+        <h1 >You need to be logged in to access this page.</h1>
+      </div>
+    );
+  }
   return (
     <section className="section">
       <div className="head_Tool">
