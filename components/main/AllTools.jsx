@@ -32,7 +32,7 @@ const AllTools = () => {
   return (
     <section className="section">
       <h1 className="">All Tools</h1>
-      {/* Add your tools here */}
+    
       <div className="tools-grid">
         {items.map((tool) => (
           <ToolCard key={tool._id} singleTool={tool} />

@@ -26,7 +26,7 @@ export default function Login() {
   const onSubmit = async (data) => {
     await adminLogin(data);
 
-    const { error, token } = adminDetails.getState(); // Fetch Zustand state
+    const { error, token } = adminDetails.getState(); 
     if (error) {
       Swal.fire({
         icon: "error",

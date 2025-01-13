@@ -8,8 +8,9 @@ const adminDetails = create((set) => ({
   adminLogin: async (data) => {
     console.log("admin login");
     try {
+      const URL ="https://sahachari-center-backend.onrender.com/v1"
       const response = await axios.post(
-        "http://localhost:3000/admin/login",
+        `${URL}/admin/login`,
         data,
         {
           headers: {
@@ -18,7 +19,7 @@ const adminDetails = create((set) => ({
         }
       );
       console.log("Response:", response.data.token);
-      const token = response.data.token; // Correctly assign the token
+      const token = response.data.token; 
       console.log("token", token);
       set({ token, error: "" });
       Cookies.set("token", token, { expires: 7, secure: true });

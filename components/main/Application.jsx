@@ -22,8 +22,9 @@ const Application = () => {
   const onSubmit = async (data,event) => {
     // console.log(data);
     try {
+      const URL ="https://sahachari-center-backend.onrender.com/v1"
       const res = await axios.post(
-        "http://localhost:3000/application/new",
+        `${URL}/application/new`,
         data,
         {
           headers: {
@@ -42,6 +43,12 @@ const Application = () => {
     event.target.reset();
     } catch (error) {
       console.log(error);
+      Swal.fire({
+        icon: "danger",
+        title: "Sorry your application failed",
+        showConfirmButton: true,
+        timer: 1500,
+      });
     }
   };
 
@@ -77,7 +84,7 @@ const Application = () => {
             id="email"
             className="block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=" "
-            required
+            
           />
           <label
             for="email"
@@ -172,9 +179,7 @@ const Application = () => {
             >
               Select Item
             </label>
-            <select
-              id="item"
-              {...register("item")}
+            <select {...register("item", { required: true })}
               className=" mt-3 border bg-transparent  border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
             >
               {items.map((tool) => {

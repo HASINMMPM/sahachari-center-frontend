@@ -3,7 +3,7 @@ import { create } from "zustand";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-const URL = "http://localhost:3000";
+const URL = "https://sahachari-center-backend.onrender.com/v1";
 
 const itemsDetails = create((set, get) => ({
   items: [],

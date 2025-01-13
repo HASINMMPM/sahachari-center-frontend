@@ -27,7 +27,7 @@ export default function AddTool() {
     <section className="section">
       <form onSubmit={handleSubmit(onSubmit)}>
         <h1>Add Tool</h1>
-        {/* register your input into the hook by invoking the "register" function */}
+       
         <div className="grp">
           <label htmlFor="name">Item Name</label>
           <input
