@@ -55,7 +55,7 @@ export default function AddOrder() {
     itemFetch();
   }, [itemFetch]);
 
-  const onSubmit = async (data, reset) => {
+  const onSubmit = async (data) => {
     addOrder(data, reset);
   };
 

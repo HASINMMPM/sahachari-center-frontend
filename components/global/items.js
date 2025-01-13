@@ -109,6 +109,7 @@ const itemsDetails = create((set, get) => ({
       });
       reset()
       
+      
     } catch (error) {
       console.error("Error updating item:", error);
       set({ error: error.response.data.error, loading: false });
