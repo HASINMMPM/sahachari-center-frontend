@@ -19,19 +19,15 @@ const Application = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (data,event) => {
+  const onSubmit = async (data, event) => {
     // console.log(data);
     try {
-      const URL ="https://sahachari-center-backend.onrender.com/v1"
-      const res = await axios.post(
-        `${URL}/application/new`,
-        data,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const URL = "https://sahachari-center-backend.onrender.com/v1";
+      const res = await axios.post(`${URL}/application/new`, data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       console.log(res);
       Swal.fire({
         icon: "success",
@@ -39,8 +35,8 @@ const Application = () => {
         showConfirmButton: true,
         timer: 1500,
       });
-    //  location.reload()
-    event.target.reset();
+      //  location.reload()
+      event.target.reset();
     } catch (error) {
       console.log(error);
       Swal.fire({
@@ -58,7 +54,7 @@ const Application = () => {
         <h2 className="text-3xl font-bold ">Application Form</h2>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="max-w-md mx-auto">
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="relative z-0 w-full mb-5 group">
           <input
             {...register("name")}
@@ -84,7 +80,6 @@ const Application = () => {
             id="email"
             className="block py-2.5 px-0 w-full text-sm text-gray-900  border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=" "
-            
           />
           <label
             for="email"
@@ -170,7 +165,12 @@ const Application = () => {
             >
               Care of
             </label>
-            <span>if you are out of unit take someone from kolmanna</span>
+            <span>
+              If you are not a resident of Kolmanna, you are required to either
+              Provide a nominee who is a resident of Kolmanna, whom we can
+              contact, or Submit a letter on your unit's official SKSSF
+              letterhead.
+            </span>
           </div>
           <div className="relative z-0 w-full mb-5 group">
             <label
@@ -179,7 +179,8 @@ const Application = () => {
             >
               Select Item
             </label>
-            <select {...register("item", { required: true })}
+            <select
+              {...register("item", { required: true })}
               className=" mt-3 border bg-transparent  border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
             >
               {items.map((tool) => {

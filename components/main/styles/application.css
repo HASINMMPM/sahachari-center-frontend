@@ -11,11 +11,12 @@ h2  {
     padding: 3rem 1rem;
   }
 
-  form{
+ #application form{
     background-color: rgb(207, 243, 255);
     color: rgb(1, 116, 153);
     border-radius: 6px;
     margin-top: 2rem;
+    width: 50%;
   }
   form button{
     background-color: rgb(1, 116, 153);
@@ -27,8 +28,14 @@ h2  {
   form span{
     font-size: .6rem;
     color: black;
+    line-height: 1 !important;
   }
 
   input{
     background-color: transparent !important;
   }
+
+  @media screen and (max-width: 600px) {
+    #application form {
+      width: 75%;
+    }}
