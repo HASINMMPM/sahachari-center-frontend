@@ -23,7 +23,7 @@ const Header = () => {
       { name: "Location", href: "/#location" },
       { name: "Tools", href: "/#tools" },
       { name: "Application", href: "/#application" },
-      { name: "Call Ambulance", href: "tel:+919995958847" },
+      { name: "Call Ambulance", href: "tel:+918943110108" },
     ];
   }
   const logout = () => {
