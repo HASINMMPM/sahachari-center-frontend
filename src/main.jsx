@@ -13,20 +13,18 @@ import AddOrder from "../components/admin/AddOrder.jsx";
 import AllOrders from "../components/admin/AllOrders.jsx";
 import Applications from "../components/admin/Application.jsx";
 
-
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />}>
-        <Route index element={<Home />} /> 
-        <Route path="tools" element={<AllTools />} /> 
+        <Route index element={<Home />} />
+        <Route path="tools" element={<AllTools />} />
 
         <Route path="dashboard/order/all" element={<AllOrders />} />
         <Route path="dashboard/order/all/new" element={<AddOrder />} />
         <Route path="dashboard/tools" element={<ItemList />} />
         <Route path="dashboard/tools/add" element={<AddTool />} />
         <Route path="dashboard/application" element={<Applications />} />
-
       </Route>
       <Route path="/login" element={<Login />} />
     </Routes>
